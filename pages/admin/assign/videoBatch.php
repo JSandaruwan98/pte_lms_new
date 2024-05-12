@@ -56,7 +56,7 @@ $_SESSION['page_name'] = 'Assign Video';
                     {
                         data: 'present',
                         render: function (data, type, row) {
-                            return '<div class="text-center"><input type="checkbox" class="checkbox"  value="' + data + '"' + (data === "1" ? ' checked' : '') + '></div>';
+                            return '<div class="text-center"><input type="checkbox" class="checkbox"  value="' + data + '"' + (data === 1 ? ' checked' : '') + '></div>';
                         },
                     },
                     { data: 'video_id' },
