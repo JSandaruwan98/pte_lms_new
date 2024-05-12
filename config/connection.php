@@ -3,7 +3,7 @@
 $host     = 'localhost';
 $db       = 'pte_lms_admin';
 $user     = 'root';
-$password = '';
+$password = 'Admin@12345';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
 
