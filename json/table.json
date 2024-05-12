@@ -1,0 +1,57 @@
+{
+
+    "batch": [
+      {
+        "name": "B.No",
+        "db_row_name": "formattedBatchID"
+      },
+      {
+        "name": "Batch Name",
+        "db_row_name": "name"
+      },
+      {
+        "name": "Program",
+        "db_row_name": "program"
+      },
+      {
+        "name": "Duration",
+        "db_row_name": "duration"
+      },
+      {
+        "name": "Action",
+        "status": "using check box",
+        "db_row_names": [
+            {"name":"batch_id"},
+            {"name":"activation"}
+          ]
+      }
+    ],     
+
+    "wallet": [
+        {
+          "name": "S.No",
+          "db_row_name": "formattedBatchID"
+        },
+        {
+          "name": "Date",
+          "db_row_name": "name"
+        },
+        {
+          "name": "Type",
+          "db_row_name": "program"
+        },
+        {
+          "name": "Amount",
+          "db_row_name": "duration"
+        },
+        {
+          "name": "Transaction",
+          "db_row_name": "duration"
+        },
+        {
+          "name": "Description",
+          "db_row_name": "duration"
+        }
+      ]     
+  }
+  

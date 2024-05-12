@@ -1,0 +1,55 @@
+$(document).ready(function () {
+    console.log(userRole)
+    if(userRole == 'student'){
+        $('#tests').click(function(){
+            $('#main').load('pages/tests.php');
+       });
+       $('#tests-history').click(function(){
+            $('#main').load('pages/testsHistory.php');  
+       });
+    }else if(userRole == 'admin'){
+        $('#dashboard').click(function(){
+            $('#main').load('/');
+       });
+       $('#add-employee').click(function(){
+            $('#main').load('pages/admin/add/addEmployee.php');  
+       });
+       $('#add-student').click(function(){
+        $('#main').load('pages/admin/add/addStudent.php');  
+       });
+       $('#add-batch').click(function(){
+        $('#main').load('pages/admin/add/addBatch.php');  
+       });
+       $('#view-student').click(function(){
+        $('#main').load('pages/admin/view/viewStudent.php');  
+       });
+       $('#view-batch').click(function(){
+        $('#main').load('pages/admin/view/viewBatch.php');  
+       });
+       $('#view-employee').click(function(){
+        $('#main').load('pages/admin/view/viewEmployee.php');  
+       });
+       $('#wallet').click(function(){
+        $('#main').load('pages/admin/view/viewWallet.php');  
+       });
+       $('#student-attendance').click(function(){
+        $('#main').load('pages/admin/view/studentAttendance.php');  
+       });
+       $('#employee-attendance').click(function(){
+        $('#main').load('pages/admin/view/employeeAttendance.php');  
+       });
+       $('#test-assign').click(function(){
+        $('#main').load('pages/admin/card/assignTest.php');  
+       });
+       $('#video-assign').click(function(){
+        $('#main').load('pages/admin/card/assignVideo.php');  
+       });
+       $('#evaluation-pending').click(function(){
+        $('#main').load('pages/admin/evaluation/pending.php');  
+       });
+       $('#evaluation-history').click(function(){
+        $('#main').load('pages/admin/evaluation/history.php');  
+       });
+    }
+
+})

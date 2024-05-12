@@ -1,0 +1,68 @@
+{
+    "studentTabs": [
+      {
+        "name": "Test",
+        "link": "/test",
+        "id": "tests"
+      },
+      {
+        "name": "Test History",
+        "link": "/test_history",
+        "id": "tests-history"
+      }
+    ],
+    "adminTabs": [
+      {
+        "name": "Dashboard",
+        "link": "/",
+        "id": "dashboard"
+      },
+      {
+        "name": "Admin",
+        "link": "/",
+        "id": "admin",
+        "sub-route": [
+          {"name":"Add Employee", "id":"add-employee"},
+          {"name":"Batch", "id":"view-batch"},
+          {"name":"Wallet", "id":"wallet"}
+        ]
+      },
+      {
+        "name": "Student",
+        "link": "/",
+        "id": "student",
+        "sub-route": [
+          {"name":"View", "id":"view-student"},
+          {"name":"Attendance", "id":"student-attendance"}
+        ]
+      },
+      {
+        "name": "Program PTE",
+        "link": "/",
+        "id": "program-pte",
+        "sub-route": [
+          {"name":"Assign Test", "id":"test-assign"},
+          {"name":"Pending Evaluation", "id":"evaluation-pending"},
+          {"name":"Evaluation History", "id":"evaluation-history"},
+          {"name":"Assign Video", "id":"video-assign"}
+
+        ]
+      },
+      {
+        "name": "Employee",
+        "link": "/",
+        "id": "employee",
+        "sub-route": [
+          {"name":"View", "id":"view-employee"},
+          {"name":"Attendance", "id":"employee-attendance"}
+        ]
+      },
+      {
+        "name": "Support",
+        "link": "/",
+        "id": "support"
+      }
+
+    ]
+  }
+  
