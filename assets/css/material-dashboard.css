@@ -8069,7 +8069,7 @@
   
   .text-bg-secondary {
     color: #000 !important;
-    background-color: RGBA(, 128, 154, var(--bs-bg-opacity, 1)) !important;
+    background-color: RGBA(233, 128, 154, var(--bs-bg-opacity, 1)) !important;
   }
   
   .text-bg-success {
