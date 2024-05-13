@@ -47,9 +47,8 @@
                
                $conditions[] = "c.$field LIKE :$field";
 
-            }else if($type === 'eval_pending'){
-
-               if($field === 'student_id' || $field === 'attempted_on'){
+            }else if($type === 'eval_pending' || $type === 'eval_history'){
+               if($field === 'student_id' || $field === 'attempted_on' || $field === 'evaluation_on'){
                   $conditions[] = "pt.$field LIKE :$field";
                }else if($field === 'assigned_on'){
                   $conditions[] = "ta.$field LIKE :$field";
@@ -58,7 +57,6 @@
                }else if($field === 'student_name'){
                   $conditions[] = "s.name LIKE :$field";
                }
-
             }
             $searchArray[$field] = "%$searchValue%";
          }
@@ -109,16 +107,16 @@
       $sql = "SELECT c.".$columns[0].", c.name, ".$day12."  
               FROM ".$table." AS c 
               LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]."  
-              WHERE 1 ".$searchQuery." 
+              WHERE 1 ".$searchQuery." AND c.activation = 1
               GROUP BY c.".$columns[0].", c.name 
               ORDER BY ".$columnName." ".$columnSortOrder." 
               LIMIT :limit,:offset";   
 
       // Total number with filtering
-      $searchCount = "SELECT COUNT(*) AS allcount FROM ".$table." AS c WHERE 1 ".$searchQuery;
+      $searchCount = "SELECT COUNT(*) AS allcount FROM ".$table." AS c WHERE 1 ".$searchQuery." AND c.activation = 1";
 
       // Total number 
-      $totalCount = "SELECT COUNT(*) AS allcount FROM ". $table;
+      $totalCount = "SELECT COUNT(*) AS allcount FROM ". $table." AS c WHERE c.activation = 1";
    }
 
 
@@ -134,17 +132,19 @@
                   CASE WHEN a.".$columns[0]." IS NOT NULL THEN 1 ELSE 0 END AS present
               FROM ".$table." AS c 
               LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]." AND a.attendance_date = '$date'  
-              WHERE 1 ".$searchQuery." GROUP BY c.".$columns[0].", c.name ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset";  
+              WHERE 1 ".$searchQuery." AND c.activation = 1 GROUP BY c.".$columns[0].", c.name ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset";  
       
       // Total number with filtering
       $searchCount = "SELECT COUNT(*) AS allcount 
                       FROM ".$table." AS c 
-                      LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]." AND a.attendance_date = '$date'";
+                      LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]." AND a.attendance_date = '$date'
+                      WHERE c.activation = 1";
 
       // Total number 
       $totalCount = "SELECT COUNT(*) AS allcount 
                      FROM ".$table." AS c
-                     LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]." AND a.attendance_date = '$date'";
+                     LEFT JOIN attendance AS a ON c.".$columns[0]." = a.".$columns[0]." AND a.attendance_date = '$date'
+                     WHERE c.activation = 1";
 
    }
 
@@ -178,25 +178,32 @@ else if($type === 'assignVideoTest'){
 //===========================================================
 else if($type === 'eval_pending' || $type === 'eval_history'){
 
-   $tables_join = "INNER JOIN testass AS ta ON pt.test_id = ta.test_id
-                   INNER JOIN test AS t ON pt.test_id = t.test_id
-                   INNER JOIN student AS s";
-         
+   $eval_tables = "FROM testass AS ta 
+                   JOIN paidtest AS pt ON ta.test_id = pt.test_id
+                   JOIN student AS s ON pt.student_id = s.student_id
+                   JOIN test AS t ON t.test_id = pt.test_id";
 
    if($type === 'eval_pending'){
-      $eval_condition = "AND pt.attempted = 1 AND pt.evaluated != 1";
-   }else if($type === 'eval_history'){
+      $eval_condition = "AND pt.attempted = 1 
+                         AND pt.evaluated != 1";
+   }else{
       $eval_condition = "AND pt.evaluated = 1";
    }
-         
+   
 
-   $sql = "SELECT ta.assigned_on, pt.student_id, s.name AS student_name, pt.attempted_on, t.name AS test_name, t.test_id
-           FROM testass as ta, paidtest AS pt, student AS s, test AS t 
-           WHERE 1 ".$searchQuery." AND ta.test_id = pt.test_id ".$eval_condition."
-                  AND ta.batch_id IN (SELECT batch_id FROM assignstudent AS astu WHERE astu.student_id = pt.student_id) 
-                  AND pt.student_id = s.student_id AND t.test_id = pt.test_id
-           ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset";
-   $searchCount = "SELECT COUNT(*) AS allcount FROM paidtest AS pt ".$tables_join." WHERE 1 ".$searchQuery." ".$eval_condition;
+   $sql = "SELECT ta.assigned_on, pt.student_id, s.name AS student_name, pt.attempted_on, t.name AS test_name, t.test_id, pt.evaluation_on
+        ".$eval_tables."
+        WHERE 1 ".$searchQuery." 
+        ".$eval_condition."
+        AND ta.batch_id IN (SELECT batch_id FROM assignstudent AS astu WHERE astu.student_id = pt.student_id) 
+        ORDER BY ".$columnName." ".$columnSortOrder." 
+        LIMIT :limit, :offset";
+
+   $searchCount = "SELECT COUNT(*) AS allcount
+                ".$eval_tables."
+                WHERE 1 ".$searchQuery." 
+                ".$eval_condition;
+
    $totalCount = "SELECT COUNT(*) AS allcount FROM paidtest AS pt WHERE 1 ".$eval_condition;
 
 }

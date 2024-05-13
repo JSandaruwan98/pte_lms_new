@@ -2,10 +2,10 @@ $(document).ready(function () {
     console.log(userRole)
     if(userRole == 'student'){
         $('#tests').click(function(){
-            $('#main').load('pages/tests.php');
+            $('#main').load('pages/student/tests.php');
        });
        $('#tests-history').click(function(){
-            $('#main').load('pages/testsHistory.php');  
+            $('#main').load('pages/student/testsHistory.php');  
        });
     }else if(userRole == 'admin'){
         $('#dashboard').click(function(){
@@ -33,16 +33,16 @@ $(document).ready(function () {
         $('#main').load('pages/admin/view/viewWallet.php');  
        });
        $('#student-attendance').click(function(){
-        $('#main').load('pages/admin/view/studentAttendance.php');  
+        $('#main').load('pages/admin/attendance/studentAttendance.php');  
        });
        $('#employee-attendance').click(function(){
-        $('#main').load('pages/admin/view/employeeAttendance.php');  
+        $('#main').load('pages/admin/attendance/employeeAttendance.php');  
        });
        $('#test-assign').click(function(){
-        $('#main').load('pages/admin/card/assignTest.php');  
+        $('#main').load('pages/admin/batch_card/assignTest.php');  
        });
        $('#video-assign').click(function(){
-        $('#main').load('pages/admin/card/assignVideo.php');  
+        $('#main').load('pages/admin/batch_card/assignVideo.php');  
        });
        $('#evaluation-pending').click(function(){
         $('#main').load('pages/admin/evaluation/pending.php');  

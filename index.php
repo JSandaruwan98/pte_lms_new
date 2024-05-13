@@ -4,7 +4,7 @@ $url = isset($_GET['url']) ? $_GET['url'] : '/';
 session_start();
 $student_id = isset($_SESSION['u_id']) ? $_SESSION['u_id'] : '';
 
-if(isset($student_id)){
+if(isset($_SESSION['u_id'])){
     $routes = [
         '/' => 'pages/dashboard.php',
         '/Exams' => 'pteTest.html',

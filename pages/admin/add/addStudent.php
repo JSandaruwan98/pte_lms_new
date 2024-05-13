@@ -54,8 +54,12 @@ $_SESSION['page_name'] = 'Add Student';
                 <input type="text" class="form-control" name="studentid" id="inputId" placeholder="STU001">
             </div>
             <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="text" class="form-control" name="studentid" id="inputStuPassword" placeholder="Password">
+            </div>
+            <div class="col-md-6">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
+                <input type="text" class="form-control" name="password" id="inputName" placeholder="Name">
             </div>
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Phone</label>
@@ -151,6 +155,29 @@ $_SESSION['page_name'] = 'Add Student';
                 for (var i = 0; i < data.length; i++) {
                     $('#inputBatch').append('<option value="'+ data[i].batch_id +'">' + data[i].name + '</option>');
                 }
+            },
+            error: function () {
+                alert('Error fetching data.');
+            }
+        });
+        //generate the Student id
+        $.ajax({
+            url: 'controlers/get.php?data_type=getStudentId', // Replace with the correct URL
+            method: 'GET',
+            success: function (data) {
+                // Loop through the data and append it to the container
+                $("#inputId").val(data)
+            },
+            error: function () {
+                 alert('Error fetching data.');
+            }
+        });
+        $.ajax({
+            url: 'controlers/get.php?data_type=getStudentPassword', // Replace with the correct URL
+            method: 'GET',
+            success: function (data) {
+                // Loop through the data and append it to the container
+                $("#inputStuPassword").val(data)
             },
             error: function () {
                 alert('Error fetching data.');

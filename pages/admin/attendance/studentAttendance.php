@@ -1,5 +1,5 @@
 <?php
-$_SESSION['page_name'] = 'Mark Attendance';
+$_SESSION['page_name'] = 'Employee Attendance';
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,14 +9,14 @@ $_SESSION['page_name'] = 'Mark Attendance';
    <!--     Fonts and icons     -->
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
    <!-- Nucleo Icons -->
-   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+   <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
    <!-- Font Awesome Icons -->
    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
    <!-- Material Icons -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
    <!-- CSS Files -->
-   <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+   <link rel="stylesheet" href="./assets/css/material-dashboard.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    <style>
@@ -32,25 +32,38 @@ $_SESSION['page_name'] = 'Mark Attendance';
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     
 
-    <script type="text/javascript">
+	<script type="text/javascript">
 		$(document).ready(function() {
-
-            var currentDate = new Date().toISOString().slice(0,10);
-            var date = currentDate;
-
-            const column = [
+      const column = [
 				{ data: 'student_id' },
-				{ data: 'name' },
-                {
-                    data: 'present',
-                    render: function (data, type, row) {
-                     return '<div class="text-center"><input type="checkbox" class="checkbox" value="' + data + '"' + (data === "1" ? ' checked' : '') + '></div>';
-                    }
-                },
+				{ data: 'name', style: {'color':'red'} }
 			];
 
+            const currentDate = new Date();
 
-            var table = new DataTable('#jquery-datatable-example-no-configuration', {
+			for (let i = 6; i > -1; i--) {
+				const date = new Date(currentDate);
+				date.setDate(date.getDate() - i);
+				const formattedDate = date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
+        column.push({ 
+          data: 'day' + (i + 1), 
+          title: formattedDate,
+          render: function (data, type, row) {
+            if(data === 'present'){
+              return '<span class="text-success">'+data+'</span>';
+            }else if(data === 'absent'){
+              return '<span class="text-danger">'+data+'</span>';
+            }else if(data === 'leave'){
+              return '<span class="text-primary">'+data+'</span>';
+            }
+
+					},
+        });
+
+			}
+
+            new DataTable('#jquery-datatable-example-no-configuration', {
                 lengthMenu: [
                     [5, 10, 50, -1],
                     [5, 10, 50, 'All']
@@ -62,29 +75,28 @@ $_SESSION['page_name'] = 'Mark Attendance';
                     'url':'pages/admin/view/ajaxTable.php',
                     'data': function(data) {
                         data.tableName = 'student';
-                        data.type = 'mark_attendance';
-                        data.selectedDate = date;
+                        data.type = 'attendance'
+                        //data.customId = 'employee_id'
                     }
                 },
-                'columns': column,
-                //'searching': false,
-                'select': true,
-                dom: 'l<"top-right">rtip'
+                'columns': column
             });
-
-
-            // Customize and add the datepicker to the top right corner
-            $("div.top-right").html('<input type="date"  style="float:right;" id="datepicker" placeholder="YYYY-MM-DD" value="' + currentDate + '">');
-
-            console.log($('#datepicker').val())
-
-            $('#datepicker').on('change', function() {
-                date = $('#datepicker').val();
-                table.ajax.reload();
-            });
-
     });
 	</script>
+    <script>
+      $('#btn-section').append(`
+        <a id="addAttendance" class="btn text-white fw-bold" data-mdb-ripple-init style="background-color: #55acee; text-transform: none;" href="#!" role="button">
+            <i class="fas fa-edit me-2"></i>
+            Attendance Mark
+        </a>
+      `)
+
+      $(document).ready(function () {
+        $('#addAttendance').click(function(){
+         $('#main').load('pages/admin/mark_attendance/stuMarkAttendance.php');
+        });
+      });
+    </script>
 </head>
 <body>
     <?php require '../../../navbar/navbar.php'?>
@@ -94,7 +106,7 @@ $_SESSION['page_name'] = 'Mark Attendance';
         <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="border-radius-lg pt-4 pb-3" style="background-image: linear-gradient(195deg, #007bff 0%, #007bff 100%); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(0 123 255 / 33%) !important;">
-                <h6 id="table-name" class="text-white text-capitalize ps-3">Student Attendance</h6>
+                <h6 id="table-name" class="text-white text-capitalize ps-3">Attendance Table</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -104,7 +116,13 @@ $_SESSION['page_name'] = 'Mark Attendance';
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
-                            <th>Action</th>
+                            <th>Day 1</th>
+                            <th>Day 2</th>
+                            <th>Day 3</th>
+                            <th>Day 4</th>
+                            <th>Day 5</th>
+                            <th>Day 6</th>
+                            <th>Day 7</th>
                         </tr>
                     </thead> 
                   </table>

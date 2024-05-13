@@ -9,14 +9,14 @@ $_SESSION['page_name'] = 'Employee Attendance';
    <!--     Fonts and icons     -->
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
    <!-- Nucleo Icons -->
-   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+   <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
    <!-- Font Awesome Icons -->
    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
    <!-- Material Icons -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
    <!-- CSS Files -->
-   <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+   <link rel="stylesheet" href="./assets/css/material-dashboard.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    <style>
@@ -35,7 +35,7 @@ $_SESSION['page_name'] = 'Employee Attendance';
 	<script type="text/javascript">
 		$(document).ready(function() {
       const column = [
-				{ data: 'student_id' },
+				{ data: 'employee_id' },
 				{ data: 'name', style: {'color':'red'} }
 			];
 
@@ -74,7 +74,7 @@ $_SESSION['page_name'] = 'Employee Attendance';
                 'ajax': {
                     'url':'pages/admin/view/ajaxTable.php',
                     'data': function(data) {
-                        data.tableName = 'student';
+                        data.tableName = 'employee';
                         data.type = 'attendance'
                         //data.customId = 'employee_id'
                     }
@@ -93,7 +93,7 @@ $_SESSION['page_name'] = 'Employee Attendance';
 
       $(document).ready(function () {
         $('#addAttendance').click(function(){
-         $('#main').load('pages/admin/view/stuMarkAttendance.php');
+         $('#main').load('pages/admin/mark_attendance/empMarkAttendance.php');
         });
       });
     </script>

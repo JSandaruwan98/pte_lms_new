@@ -22,22 +22,25 @@
   <title>
     PTE Learning Management System
   </title>
+  <!-- popup message style -->
+  <link rel="stylesheet" href="../assets/css/popup.css">
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
-  <link id="pagestyle" href="assets/css/material-dashboard.css" rel="stylesheet" />
+  <link id="pagestyle" href="./assets/css/material-dashboard.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     .primary{
       background-color: #007bff;
     }
+    
   </style>
   <script>
     const userRole = "<?= $tabs_name ?>";
@@ -95,7 +98,7 @@
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Log Out</a>
+        <a class="btn bg-gradient-primary mt-4 w-100" id="logout" href="#" type="button">Log Out</a>
       </div>
     </div>
   </aside>
@@ -106,6 +109,16 @@
 
     </div>
 
+    <div id="popup" class="popup">
+        <div class="popup-card" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text fw-normal r3"></p>
+                <div class="text-center"> <button class="btn btn-primary w-50 rounded-pill b1"></button> </div>
+                <a class="b2" href="#"></a>
+            </div>
+        </div>
+    </div> 
     
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
@@ -160,6 +173,27 @@
         event.stopPropagation();
       });
     });
+  </script>
+
+
+  <script>
+    $('#logout').click(function(){
+      $("#popup").fadeIn(400,function() {
+        $('.card-title').text('Are you sure Logout?')
+        $('.card-text').text('')
+        $('.b1').text('Logout')
+        $('.b2').text('Not now')
+      });
+    })
+
+    $(document).on('click', '.b2', function(event) {
+      $('#popup').fadeOut()
+    })
+    $(document).on('click', '.b1', function(event) {
+      $('#popup').fadeOut()
+      window.location.href = "../logout.php?type=student"
+    })
+
   </script>
 
 

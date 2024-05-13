@@ -74,20 +74,74 @@ class StudentModel
 //===============================================================================================================================================
 
     public function getStudentId() {
-        $query = "SELECT MAX(student_id) as max_id FROM student";
+        $query = "SELECT CONCAT('STU', LPAD(MAX(id) + 1, 5, '0')) AS next_id FROM student";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($row && isset($row["max_id"])) {
-            $maxID = $row["max_id"];
-            $nextID = "STU" . str_pad(($maxID + 1), 4, "0", STR_PAD_LEFT);
+        
+        if ($stmt->rowCount() == 1) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $nextID = $row["next_id"];
             return $nextID;
         } else {
             return "STU0001";
-        }    
+        }
+    }
+
+//===============================================================================================================================================
+
+    // ExistingPassword
+    function getExistingPasswords() {
+        $existingPasswords = array();
+        $query = "SELECT password FROM student";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        if ($stmt) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $existingPasswords[] = $row['password'];
+            }
+            $stmt->closeCursor(); 
+        } else {
+            echo "Error: " . $this->conn->errorInfo()[2];
+        }
+
+        return $existingPasswords;
+
+    }
+    
+    // Generate the Random String
+    function generateRandomString($length = 10) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*';
+        $randomString = '';
+        $numCharacters = strlen($characters);
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $numCharacters - 1)];
+        }
+        return $randomString;
+    }
+    
+    //Genarate the Passwords
+    public function getStudentPassword() {
+        $nameCharacters = $this->generateRandomString(5);
+        $existingPasswords = $this->getExistingPasswords();
+        
+    
+        $randomNumber = rand(100, 999);
+        $password = $nameCharacters . $randomNumber; 
+        
+        while (in_array($password, $existingPasswords)) {
+            $nameCharacters = $this->generateRandomString(6);
+            $password = $nameCharacters . $randomNumber;
+        }
+        
+        return $password;
     }
 
 }
+
+//===============================================================================================================================================
+
+
+
 
 ?>
