@@ -1,7 +1,7 @@
 <?php
 $servername = 'localhost';
 $username = 'root';
-$password = 'Admin@1234';
+$password = 'Admin@12345';
 $dbname = 'pte_lms_admin';
 
 try {

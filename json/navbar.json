@@ -24,7 +24,7 @@
         "sub-route": [
           {"name":"Add Employee", "id":"add-employee"},
           {"name":"Batch", "id":"view-batch"},
-          {"name":"Wallet", "id":"wallet"}
+          {"name":"Payments", "id":"wallet"}
         ]
       },
       {
