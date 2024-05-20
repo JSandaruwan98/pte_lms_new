@@ -1,6 +1,6 @@
 <?php
 require_once 'check_role/checkRole.php';
-checkRoleOthers('student');
+checkRoleOthers('admin');
 ?>
 <!DOCTYPE html>
 <html lang="en">
