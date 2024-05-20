@@ -86,5 +86,54 @@ class Checkbox
         return $response;  
           
     }
+
+//===============================================================================================================================================
+
+    public function markAttendance($attendanceDate, $personId, $personIdName) {
+
+        try {
+            // Prepare SQL statement
+            $sql = "INSERT INTO attendance ($personIdName, attendance_date) VALUES ('$personId', '$attendanceDate')";
+            $stmt = $this->conn->prepare($sql);
+        
+            // Execute the statement
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = $sql;
+            } else {
+                $response['success'] = false;
+                $response['message'] = "attendance creation failed. Please try again.";
+            }
+        } catch (PDOException $e) {
+            $response['success'] = false;
+            $response['message'] = "Error: " . $e->getMessage();
+        }
+        
+        
+        return $response;
+    }
+
+//===============================================================================================================================================
+
+    public function removeAttendance($attendanceId) {       
+        try {
+            $sql = "DELETE FROM attendance WHERE attendance_id = '$attendanceId'";
+            $stmt = $this->conn->prepare($sql);
+
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = "Employee deleted successfully!";
+            } else {
+                $response['success'] = false;
+                $response['message'] = "Employee deletion failed. Please try again.";
+            }
+        } catch (PDOException $e) {
+            $response['success'] = false;
+            $response['message'] = "Error: " . $e->getMessage();
+        }
+        
+    }
+
+//===============================================================================================================================================
     
 }

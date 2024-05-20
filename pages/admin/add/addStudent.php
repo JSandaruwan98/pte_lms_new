@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'Add Student';
 ?>
 <!DOCTYPE html>
@@ -10,14 +13,14 @@ $_SESSION['page_name'] = 'Add Student';
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="./assets/css/material-dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
@@ -55,11 +58,11 @@ $_SESSION['page_name'] = 'Add Student';
             </div>
             <div class="col-md-6">
                 <label for="inputPassword" class="form-label">Password</label>
-                <input type="text" class="form-control" name="studentid" id="inputStuPassword" placeholder="Password">
+                <input type="text" class="form-control" name="password" id="inputStuPassword" placeholder="Password">
             </div>
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" class="form-control" name="password" id="inputName" placeholder="Name">
+                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
             </div>
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Phone</label>
@@ -104,13 +107,13 @@ $_SESSION['page_name'] = 'Add Student';
     $(document).ready(function(){
         $('#studentAdd').submit(function (event){
             event.preventDefault();
-            console.log($(this).serialize()+"&task=studentAdd")
             $.ajax({
                 type: 'POST',
                 url: 'controlers/post.php',
                 data: $(this).serialize()+"&task=studentAdd",
                 dataType: "json",
                 success: function (response) {
+                    console.log('response.message')
                     if (response.success) {
                         // Show success alert
                         $("#alertSuccess").css("display","flex")
@@ -136,7 +139,9 @@ $_SESSION['page_name'] = 'Add Student';
                         }, 3000)
                     }
                 },
-                error: function () {
+                error: function (response) {
+                    console.log('response.message')
+
                 }
             })
         })
@@ -162,14 +167,15 @@ $_SESSION['page_name'] = 'Add Student';
         });
         //generate the Student id
         $.ajax({
-            url: 'controlers/get.php?data_type=getStudentId', // Replace with the correct URL
+            url: 'controlers/get.php?data_type=getStudentId',
             method: 'GET',
             success: function (data) {
-                // Loop through the data and append it to the container
-                $("#inputId").val(data)
+                console.log("Success:", data);
+                $("#inputId").val(data);
             },
-            error: function () {
-                 alert('Error fetching data.');
+            error: function (xhr, status, error) {
+                console.error("Error:", status, error);
+                alert('Error fetching data.');
             }
         });
         $.ajax({

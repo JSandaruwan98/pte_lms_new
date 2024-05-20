@@ -1,0 +1,44 @@
+
+.dropdown-ptepractice {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-ptepractice {
+  display: none;
+  position: absolute;
+  background-color: #E3F4EE;
+  width: 1350px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 2;
+  top: 45px;
+  left: -375px;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style for the button */
+.dropbtn-ptepractice {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-content-ptepractice ul{
+list-style: none;
+padding: 10px;
+}
+.dropdown-content-ptepractice li{
+padding: 5px;
+padding-left: 15px;
+font-weight: normal;
+}
+.dropdown-content-ptepractice h2{
+font-size: 18px;
+margin-bottom: 10px;
+margin-left: 20px;
+font-weight: bold;
+}

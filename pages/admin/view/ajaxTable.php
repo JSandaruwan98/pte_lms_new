@@ -38,27 +38,31 @@
       $searchQuery = " AND (";
       $conditions = array();
       foreach ($columns as $field) {
-         if ($field != 'action' && $field != 'present' && $field !== "day1" && $field !== "day2" && $field !== "day3" && $field !== "day4" && $field !== "day5" && $field !== "day6" && $field !== "day7") {
+         if ($field !== 'action' && $field !== 'present' && $field !== "day1" && $field !== "day2" && $field !== "day3" && $field !== "day4" && $field !== "day5" && $field !== "day6" && $field !== "day7") {
             if($type === 'view'){
 
                $conditions[] = "$field LIKE :$field";
+               $searchArray[$field] = "%$searchValue%";
 
             }else if($type === 'attendance' || $type === 'mark_attendance' || $type === 'assignVideoTest'){
-               
-               $conditions[] = "c.$field LIKE :$field";
-
-            }else if($type === 'eval_pending' || $type === 'eval_history'){
-               if($field === 'student_id' || $field === 'attempted_on' || $field === 'evaluation_on'){
-                  $conditions[] = "pt.$field LIKE :$field";
-               }else if($field === 'assigned_on'){
-                  $conditions[] = "ta.$field LIKE :$field";
-               }else if($field === 'test_name'){
-                  $conditions[] = "t.name LIKE :$field";
-               }else if($field === 'student_name'){
-                  $conditions[] = "s.name LIKE :$field";
+               if($field !== 'attendace_id') {
+                  $conditions[] = "c.$field LIKE :$field";
+                  $searchArray[$field] = "%$searchValue%";
                }
+            }else if($type === 'eval_pending' || $type === 'eval_history'){
+               if($field !== 'test_id') {
+                  if($field === 'student_id' || $field === 'attempted_on' || $field === 'evaluation_on'){
+                     $conditions[] = "pt.$field LIKE :$field";
+                  }else if($field === 'assigned_on'){
+                     $conditions[] = "ta.$field LIKE :$field";
+                  }else if($field === 'test_name'){
+                     $conditions[] = "t.name LIKE :$field";
+                  }else if($field === 'student_name'){
+                     $conditions[] = "s.name LIKE :$field";
+                  }
+                  $searchArray[$field] = "%$searchValue%";
+               }    
             }
-            $searchArray[$field] = "%$searchValue%";
          }
       }
       $searchQuery .= implode(" OR ", $conditions);

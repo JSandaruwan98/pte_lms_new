@@ -1,4 +1,7 @@
-
+<?php
+require_once '../../check_role/checkRole.php';
+checkRole('student');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,16 +20,16 @@
     <?php $_SESSION['page_name'] = "Test History"?>    
     <?php require '../../navbar/navbar.php'?>
     <div class="container-fluid px-2 px-md-4">
-      <div class="page-header min-height-150 border-radius-xl mt-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.0), #3B71CA), url('assets/img/item.png');">
+      <div class="page-header min-height-150 border-radius-xl mt-1" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.0), #2962FF), url('assets/img/banner-2.jpg');">
         <span class="mask  .bg-gradient-success  opacity-6"></span>
       </div>
-      <div class="card card-body mx-3 mx-md-4 mt-n7">
-        <div class="col-12 mt-4">
-          <div class="mb-3 ps-3">
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="col-12 mt-2">
+          <div class="mb-2 px-3">
             <h6 class="mb-1">Test History</h6>
-            <p class="text-sm">Explore diverse assessment history</p>
+            <p class="text-sm"></p>
           </div>
-          <div class="row mb-3 ps-3">
+          <div class="row mb-2 px-3">
             <div id="mock-test">
                 <ul class="nav nav-tabs mb-3">
                     <li class="nav-item">
@@ -60,14 +63,15 @@ $(document).ready(function(){
             data: {  },
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 $('#tab-content-pending').empty()
                 $.each(response, function (index, item) {
                     $('#tab-content-pending').append(`
                         <div id="exam-division" class="exam-division-pending row" style="padding: 0% 3%;">
-                        <ul class="list-group" style = "cursor: pointer;" data-id = `+item.test_id+` data-paid = `+item.paid+`>
+                        <ul class="list-group exam-card" style = "cursor: pointer;" data-id = `+item.test_id+` data-eval = `+item.evaluated+` data-sid = `+item.student_id+`>
                             <li class="list-group-item border-0 d-flex align-items-center px-0 pt-0">
                                 <div class="avatar me-3">
-                                    <img src="../assets/img/voice-kola3.jpg" alt="kal" class="border-radius-lg shadow h-100">
+                                    <img src="`+item.image_file+`" alt="kal" class="border-radius-lg shadow h-100">
                                 </div>
                                 <div class="d-flex align-items-start flex-column justify-content-center">
                                     <h6 class="mb-0 text-sm">`+item.name+`</h6>
@@ -81,6 +85,27 @@ $(document).ready(function(){
                     if(item.paid != 1){
                         $('#tab-content-pending #exam-division:last-child #status').css('display','none');
                     }
+                })
+                $('.exam-card').click(function (e) {
+                    var eval = $(this).data('eval')
+                    if(eval){
+                        var url = "index.php?url=/Evaluation#" + $(this).data('id') + "#" +$(this).data('sid') + "#1";
+                        var newTab = window.open('', '_blank');
+
+                        newTab.location.href = url;
+                    }else{
+                        $("#popup-other").fadeIn(400, function() {
+                            $('.card-title-other').text('');
+                            $('.card-text-other').text('This has not been evaluated');
+                            $('.b1-other').text('Close');
+                            //$('.b2-other').text('Not now');
+                        });
+
+                        $('.b1-other').on('click', function() {
+                                $("#popup-other").fadeOut();
+                        });
+                    }
+                        
                 })
             },error: function() {
                 $('#tab-content-pending').empty()

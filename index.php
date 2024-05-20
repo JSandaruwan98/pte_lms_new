@@ -2,21 +2,18 @@
 $url = isset($_GET['url']) ? $_GET['url'] : '/';
 
 session_start();
-$student_id = isset($_SESSION['u_id']) ? $_SESSION['u_id'] : '';
 
-if(isset($_SESSION['u_id'])){
+if(isset($_SESSION['user_role'])){
     $routes = [
         '/' => 'pages/dashboard.php',
-        '/Exams' => 'pteTest.html',
-        '/Evaluation' => 'evaluationSheet.html',   
+        '/Exams' => 'pages/student/exam.php',
+        '/Evaluation' => 'pages/evaluation_sheet/view.php',  
+        '/PendingEvaluation' => 'pages/evaluation_sheet/submit.php',   
     ];
 }else{
     header("Location: login/login.html");
 }
 
-echo "<script>";
-echo "console.log('Student ID:', '$student_id');";
-echo "</script>";
 
 if (array_key_exists($url, $routes)) {
     include __DIR__ . '/' . $routes[$url];

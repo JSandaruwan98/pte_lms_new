@@ -11,7 +11,7 @@ class StudentModel
 
 //===============================================================================================================================================    
 
-    public function insertStudent($studentid, $name, $phone, $program, $batchid, $starton)
+    public function insertStudent($studentid, $name, $password, $phone, $program, $batchid, $starton)
     {
         $response = array();
 
@@ -30,18 +30,21 @@ class StudentModel
             $stu_id = (int)$numericPart;
         
             // Insert the student data into the database (assuming you have a "student" table)
-            $sql = "INSERT INTO student (name, phone) VALUES (:name, :phone)";
+            $sql = "INSERT INTO student (student_id, name, phone, password) VALUES (:id, :name, :phone, :password)";
             $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $studentid, PDO::PARAM_STR);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-        
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+
+            $currentDate = date("Y-m-d");
             // Insert the student into the batch (assuming you have an "assignstudent" table)
             $sqlnext = "INSERT INTO assignstudent (batch_id, student_id, enrollment_date) 
                         VALUES (:batchid, :stu_id, :starton)";
             $stmtnext = $this->conn->prepare($sqlnext);
             $stmtnext->bindParam(':batchid', $batchid, PDO::PARAM_INT);
-            $stmtnext->bindParam(':stu_id', $stu_id, PDO::PARAM_INT);
-            $stmtnext->bindParam(':starton', $starton, PDO::PARAM_STR);
+            $stmtnext->bindParam(':stu_id', $studentid, PDO::PARAM_STR);
+            $stmtnext->bindParam(':starton', $currentDate, PDO::PARAM_STR);
         
             // Insert notification data
             $sql1 = "INSERT INTO notification (type, message) 
@@ -74,7 +77,7 @@ class StudentModel
 //===============================================================================================================================================
 
     public function getStudentId() {
-        $query = "SELECT CONCAT('STU', LPAD(MAX(id) + 1, 5, '0')) AS next_id FROM student";
+        $query = "SELECT CONCAT('STU', LPAD(MAX(CAST(SUBSTRING(student_id, 4) AS UNSIGNED)) + 1, 5, '0')) AS next_id FROM student";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         

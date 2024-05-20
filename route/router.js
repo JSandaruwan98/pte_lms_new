@@ -9,7 +9,7 @@ $(document).ready(function () {
        });
     }else if(userRole == 'admin'){
         $('#dashboard').click(function(){
-            $('#main').load('/');
+            $('#main').load('pages/dashboardstats.php');
        });
        $('#add-employee').click(function(){
             $('#main').load('pages/admin/add/addEmployee.php');  
@@ -49,6 +49,9 @@ $(document).ready(function () {
        });
        $('#evaluation-history').click(function(){
         $('#main').load('pages/admin/evaluation/history.php');  
+       });
+       $('#support').click(function(){
+        $('#main').load('pages/admin/view/support.php');  
        });
     }
 

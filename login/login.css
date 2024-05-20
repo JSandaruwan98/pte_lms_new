@@ -1,19 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
-  padding: 8% 0 0;
+  width: 70vh;
+  padding: 30vh 0 0;
   margin: auto;
 }
-.form {
+.login-form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
+  background: #0000002e;
+  max-width: 100%;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 20px;
+}
+.login-form .login-header{
+  margin: 2vh 0vh 5vh 0vh;
+  color: #fff;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -21,16 +25,17 @@
   background: #f2f2f2;
   width: 100%;
   border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
+  margin: 0 0 18px;
+  padding: 14px;
+  border-radius: 6px;
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
+.login-form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #71C4CF;
+  background: #636b99;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -41,7 +46,7 @@
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #71C4CF;
+  background: #5b6391;
 }
 .form .message {
   margin: 15px 0 0;
@@ -91,7 +96,7 @@
 body {
   background: #71C4CF; /* fallback for old browsers */
   background: #71C4CF;
-  background: linear-gradient(90deg, #71C4CF 0%, #71C4CF 50%);
+  background: linear-gradient(90deg, #505887 0%, #232c54 50%);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      

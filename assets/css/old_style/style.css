@@ -1,0 +1,321 @@
+.side-nav-bar,
+.side-nav-bar * {
+  box-sizing: border-box;
+}
+.side-nav-bar {
+  background: #E3F4EE;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+.navbar1{
+    background: #E3F4EE;
+    height: 65px;
+}
+.logo_icon{
+  opacity: 0.6000000238418579;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 27px;
+  top: 14px;
+}
+.logo_name{
+    color: #000000;
+    text-align: left;
+    font: 700 16px "Inter", sans-serif;
+    position: absolute;
+    left: 81.64px;
+    top: 23px;
+    width: 125.91px;
+    height: 15px;
+}
+
+  
+  
+  
+  
+  .sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+  #main .header, .content, .sidebar, .card{ 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 8%);
+  }
+  #main-navbar{
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+  .card{
+    border-radius: 20px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+
+  .profile-div {
+    width: 200px;
+    background-color: #E3F4EE;
+    color: #666464;
+    font: 500 12px 'Inter', sans-serif;
+    top: 75px;
+    left: -230px;
+    overflow-y: hidden;
+    position: fixed;
+    transition: left 0.3s ease-in-out;
+    margin-left: 15px;
+    border-radius: 5px;
+  }
+
+  .sidebar {
+    width: 200px;
+    background-color: #E3F4EE;
+    color: #666464;
+    font: 500 12px 'Inter', sans-serif;
+    top: 135px;
+    left: -230px;
+    overflow-y: hidden;
+    position: fixed;
+    transition: left 0.3s ease-in-out;
+    margin-left: 15px;
+    border-radius: 5px;
+  }
+
+  .sidebar li a:hover{
+    background-color: #E3F4EE;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 4%);
+
+  }
+  .clicked{
+    background-color: #E3F4EE;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 4%);
+  }
+
+
+  .sidebar.open {
+    left: 0;
+}
+
+  
+
+  .menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu-item {
+   
+    padding-bottom: 10px;
+  }
+  
+  .menu-item a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #666464;
+  }
+  
+  .submenu {
+    display: none;
+    list-style-type: none; 
+  }
+  
+  .submenu li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .submenu a {
+    color: #666464;
+    margin-left: -20px;
+    padding-left: 70px;
+    font: 500 11px 'Inter', sans-serif;
+    text-decoration: none;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+    margin-left: 20px;
+    opacity: 0.5;
+    }
+
+    #main {
+      margin-top: 55px;
+      margin-left: 0px;
+      padding: 20px;
+      overflow: hidden;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    
+    
+    @media (max-width: 991.98px) {
+      #main{
+        width: 100%;
+      }
+      
+    }
+    @media screen and (min-width: 768px) {
+      /* Apply styles when the screen width is 768px or wider */
+      .sidebar {
+          left: 0;
+          height: 615px;
+          background-color: #E3F4EE;
+      }
+      
+      .profile-div {
+        left: 0;
+        height: 50px;
+        background-color: #E3F4EE;
+    }
+  
+      #main {
+          margin-left: 215px;
+      }
+      #space{
+        padding: 30px;
+      }
+
+      .sidebar li a:hover{
+        background-color: rgba(113, 196, 207, 0.29);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 4%);
+    
+      }
+      .clicked{
+        background-color: rgba(113, 196, 207, 0.29);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 4%);
+      }
+
+      .tblcard{
+        height: 380px;
+      }
+      .pgecard{
+        margin-top: 30px;
+      }
+      
+    }
+    #notificationContainer{
+      right: 100px;
+      position: fixed;
+      top: 50px;
+    }
+ 
+    .header, .content{
+      background-color: #F9F1F1;
+      font: 500 10px 'Inter', sans-serif;
+    }
+
+    .table .title{
+      font: 500 10px 'Inter', sans-serif;
+      color: #666464;
+    }
+    .th{
+      color: #666464;
+    }
+    thead{
+      background-color: rgba(244, 227, 227, 1);
+      color: rgba(244, 227, 227, 0.5);
+    }
+    tbody{
+      background-color: white;
+      max-height: 350px;
+    }
+    .table{
+      cursor: pointer;
+      overflow-y: hidden;
+    }
+    
+
+    #form{
+      position:static;
+    }
+
+    .form-group{
+      position: static;
+    }
+
+
+    input[type="checkbox"]:checked {
+      background-color: #6c757d; /* Change the background color when checked */
+      border-color: #6c757d; /* Change the border color when checked */
+    } 
+    
+    input[type="checkbox"]:checked::before {
+      color: white; 
+    } 
+
+    #card{
+      background-color: white;
+      padding: 10px;
+    }
+
+
+    /* CSS to style the message box */
+    #message-box {
+      display: none;
+      width: 400px;
+      background-color: #F2D9D9;
+      border: 1px solid #ccc;
+      padding: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 30%);
+  }
+
+  /* Style for checkboxes */
+  label {
+      display: block;
+  }
+
+  
+  .button-container {
+      float: right;
+      margin-top: 10px;
+  }
+
+  .button-container button {
+      margin-right: 10px;
+  }
+
+  .profile-dropdown-box {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown-content-profile {
+    display: none;
+    position: absolute;
+    background-color: #71C4CF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content-profile a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-content-profile a:hover {
+    background-color: #71C4CF;
+}
+
+
+
+ 

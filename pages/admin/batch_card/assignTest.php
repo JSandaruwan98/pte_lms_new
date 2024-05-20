@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'Assign Test';
 ?>
 <!DOCTYPE html>

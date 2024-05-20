@@ -1,5 +1,8 @@
 <?php
-$_SESSION['page_name'] = 'Employee Attendance';
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
+$_SESSION['page_name'] = 'Student Attendance';
 ?>
 <!DOCTYPE html>
 <html>
@@ -85,9 +88,9 @@ $_SESSION['page_name'] = 'Employee Attendance';
 	</script>
     <script>
       $('#btn-section').append(`
-        <a id="addAttendance" class="btn text-white fw-bold" data-mdb-ripple-init style="background-color: #55acee; text-transform: none;" href="#!" role="button">
+        <a id="addAttendance" class="btn btn-add-new-data text-white" data-mdb-ripple-init href="#!" role="button">
             <i class="fas fa-edit me-2"></i>
-            Attendance Mark
+            Add Attendance
         </a>
       `)
 
@@ -104,8 +107,8 @@ $_SESSION['page_name'] = 'Employee Attendance';
 	<div class="container mt-3">
       <div class="row">
         <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="border-radius-lg pt-4 pb-3" style="background-image: linear-gradient(195deg, #007bff 0%, #007bff 100%); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(0 123 255 / 33%) !important;">
+            <div class="card-header view-tables-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="border-radius-lg pt-4 pb-3">
                 <h6 id="table-name" class="text-white text-capitalize ps-3">Attendance Table</h6>
               </div>
             </div>

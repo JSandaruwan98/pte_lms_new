@@ -1,9 +1,12 @@
 <?php
 session_start();
 
-$type = $_GET['type'];
-if($type == 'student'){
-    unset($_SESSION['student_id']);
+$user_role = $_SESSION['user_role'];
+if($user_role === 'student' || $user_role === 'admin'){
+
+    unset($_SESSION['user_id']);
+    unset($_SESSION['username']);
+    unset($_SESSION['user_role']);
 
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();

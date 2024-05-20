@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'View Student';
 ?>
 <!DOCTYPE html>
@@ -26,7 +29,7 @@ $_SESSION['page_name'] = 'View Student';
    </style>
 
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-
+  <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -57,7 +60,7 @@ $_SESSION['page_name'] = 'View Student';
             {
               data: 'activation',
               render: function (data, type, row) {
-                return '<div class="text-center"><input type="checkbox" class="checkbox"  value="' + data + '"' + (data === 1 ? ' checked' : '') + '></div>';
+                return '<div class="text-center"><input type="checkbox" class="checkbox"  value="' + data + '"' + (data === "1" ? ' checked' : '') + '></div>';
               }
             }
           ]
@@ -92,9 +95,9 @@ $_SESSION['page_name'] = 'View Student';
 	</script>
   <script>
         $('#btn-section').append(`
-            <a id="addStudent" class="btn text-white fw-bold" data-mdb-ripple-init style="background-color: #55acee; text-transform: none;" href="#" role="button">
+            <a id="addStudent" class="btn btn-add-new-data text-white" data-mdb-ripple-init href="#" role="button">
               <i class="fas fa-user me-2"></i>
-                  Student Add
+                Add Student
               </a>
         `)
 
@@ -111,9 +114,9 @@ $_SESSION['page_name'] = 'View Student';
 	<div class="container mt-3">
       <div class="row">
         <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="border-radius-lg pt-4 pb-3" style="background-image: linear-gradient(195deg, #007bff 0%, #007bff 100%); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(0 123 255 / 33%) !important;">
-                <h6 id="table-name" class="text-white text-capitalize ps-3">Batches Table</h6>
+            <div class="card-header view-tables-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="border-radius-lg pt-4 pb-3">
+                <h6 id="table-name" class="text-white text-capitalize ps-3">All Students</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">

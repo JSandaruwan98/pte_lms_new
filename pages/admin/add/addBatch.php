@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'Add Batch';
 ?>
 <!DOCTYPE html>
@@ -10,8 +13,8 @@ $_SESSION['page_name'] = 'Add Batch';
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
@@ -24,7 +27,6 @@ $_SESSION['page_name'] = 'Add Batch';
         .my-button:hover {
             border: 1px solid rgb(60, 41, 116)
         }
-
     </style>
 </head>
 <body>

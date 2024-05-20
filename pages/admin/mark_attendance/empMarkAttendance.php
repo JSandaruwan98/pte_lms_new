@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'Mark Attendance';
 ?>
 <!DOCTYPE html>
@@ -41,10 +44,11 @@ $_SESSION['page_name'] = 'Mark Attendance';
             const column = [
 				{ data: 'employee_id' },
 				{ data: 'name' },
+                { data: 'attendance_id', visible: false },
                 {
                     data: 'present',
                     render: function (data, type, row) {
-                     return '<div class="text-center"><input type="checkbox" class="checkbox" value="' + data + '"' + (data === "1" ? ' checked' : '') + '></div>';
+                        return '<div class="text-center"><input type="checkbox" class="checkbox"  value="' + data + '"' + (data === "1" ? ' checked' : '') + '></div>';
                     }
                 },
 			];
@@ -83,6 +87,36 @@ $_SESSION['page_name'] = 'Mark Attendance';
                 table.ajax.reload();
             });
 
+            table.on('change', '.checkbox', function() {
+                var isChecked = $(this).is(':checked');
+                var rowData = table.row($(this).closest('tr')).data(); 
+                var attendace_id = rowData.attendance_id;
+                var employee_id = rowData.employee_id;
+                console.log(attendace_id)
+                $.ajax({
+                    url: 'controlers/post.php', // Your server-side script URL
+                    method: 'POST',
+                    data: {
+                    attendace_id: attendace_id,
+                    employee_id: employee_id,
+                    isChecked: isChecked,
+                    task: 'marked',
+                    nameofid: 'employee_id',
+                    date: date
+                    },
+                    success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error('Error updating database:', error);
+                    }
+                });
+            })
+
+            
+
     });
 	</script>
 </head>
@@ -92,8 +126,8 @@ $_SESSION['page_name'] = 'Mark Attendance';
 	<div class="container mt-4">
       <div class="row">
         <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="border-radius-lg pt-4 pb-3" style="background-image: linear-gradient(195deg, #007bff 0%, #007bff 100%); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(0 123 255 / 33%) !important;">
+            <div class="card-header view-tables-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="border-radius-lg pt-4 pb-3">
                 <h6 id="table-name" class="text-white text-capitalize ps-3">Employee Attendance</h6>
               </div>
             </div>
@@ -103,6 +137,7 @@ $_SESSION['page_name'] = 'Mark Attendance';
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th>AttendaceId</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>

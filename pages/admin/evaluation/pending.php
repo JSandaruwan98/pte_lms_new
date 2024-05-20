@@ -1,4 +1,7 @@
 <?php
+require_once '../../../check_role/checkRole.php';
+checkRole('admin');
+
 $_SESSION['page_name'] = 'Evaluation Pending';
 ?>
 <!DOCTYPE html>
@@ -55,6 +58,7 @@ $_SESSION['page_name'] = 'Evaluation Pending';
             { data: 'assigned_on' },
             { data: 'attempted_on' },
             { data: 'test_name' },
+            { data: 'test_id', visible: false },
             {
                 data: 'action',
                 render: function(data, type, row) {
@@ -66,7 +70,13 @@ $_SESSION['page_name'] = 'Evaluation Pending';
         });
 
         table.on('click', '.pending_sheet', function() {
-          console.log('kamal')
+          var rowData = table.row($(this).closest('tr')).data(); 
+          var testId = rowData.test_id;
+          var studentId = rowData.student_id;
+
+          var url = "index.php?url=/PendingEvaluation#" + testId +"#"+ studentId + "#1";
+          var newTab = window.open('', '_blank');
+          newTab.location.href = url;
         })
 
       });
@@ -78,8 +88,8 @@ $_SESSION['page_name'] = 'Evaluation Pending';
 	<div class="container mt-3">
       <div class="row">
         <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="border-radius-lg pt-4 pb-3" style="background-image: linear-gradient(195deg, #007bff 0%, #007bff 100%); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(0 123 255 / 33%) !important;">
+            <div class="card-header view-tables-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="border-radius-lg pt-4 pb-3">
                 <h6 id="table-name" class="text-white text-capitalize ps-3">Evaluation Table</h6>
               </div>
             </div>
@@ -93,6 +103,7 @@ $_SESSION['page_name'] = 'Evaluation Pending';
                             <th>Assigned On</th>
                             <th>Attempted On</th>
                             <th>Test</th>
+                            <th>Test_id</th>
                             <th></th>
                         </tr>
                     </thead> 
